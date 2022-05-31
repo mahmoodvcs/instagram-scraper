@@ -1223,6 +1223,13 @@ class InstagramScraper(object):
             except KeyError:
                 customfilename = str(filename + extension)
                 yield url, customfilename
+        
+        if 'display_url' in item:
+            url = item['display_url']
+            if not url in item['urls']:
+                filename, extension = os.path.splitext(os.path.split(url.split('?')[0])[1])
+                customfilename = str(filename + extension)
+                yield url, customfilename
 
     def is_new_media(self, item):
         """Returns True if the media is new."""
